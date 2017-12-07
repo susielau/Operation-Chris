@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   z-index: 0;
-  background-image: url("images/background.png");
+
 }
 .food-icon {
   width: auto;
@@ -20,8 +20,8 @@
   -webkit-justify-content: center;
   /*border-color: rgba(162, 141, 86, 100);
   border-style: inset;
-  border-radius: 4rem;*/
-  width: 66%;
+  border-radius: 4rem;
+  width: 66%;*/
   /*jumbotron*/
   padding: 2rem 1rem;
   margin-bottom: 2rem;
@@ -40,7 +40,7 @@
     font-family: 'Berkshire Swash', serif;
     font-size: 50px;
     text-shadow: 2px 2px 4px rgb(199, 195, 195);
-    color: rgb(116, 75, 28);
+    color: rgb(255,204,153);
     size: 80%;
 }
 .home-instruction {
@@ -48,6 +48,28 @@
   font-size: 20px;
 }
 .form-mealnumber {
-
   width: 200px;
+}
+.input-form div {
+  padding: 5px;
+}
+.input-form div:nth-of-type(3) {
+  flex-basis: 300px;
+  padding: 10px;
+}
+.btn-outline-start {
+  color: #9d5a0b;
+  background-color: transparent;
+  background-image: none;
+  border-color: #9d5a0b;
+}
+
+.btn-outline-start:hover {
+  color: #fff;
+  background-color: #9d5a0b;
+  border-color: #9d5a0b;
+}
+
+.btn-outline-start:focus, .btn-outline-start.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
 }
