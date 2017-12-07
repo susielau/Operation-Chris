@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Berkshire+Swash|Satisfy');
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background-image: url("images/background.png");
+}
+.food-icon {
+  width: auto;
+  height: 70px;
+  position: relative;
+}
+.vertical-inner {
+  margin: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  /*border-color: rgba(162, 141, 86, 100);
+  border-style: inset;
+  border-radius: 4rem;*/
+  width: 66%;
+  /*jumbotron*/
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+.vertical-middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+.vertical-outer {
+  display: table;
+  height: 100%;
+  height: 100vh;
+  width: 100%;
+}
+.home-headlines {
+    font-family: 'Berkshire Swash', serif;
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgb(199, 195, 195);
+    color: rgb(116, 75, 28);
+    size: 80%;
+}
+.home-instruction {
+  font-family: 'Open Sans';
+  font-size: 20px;
+}
+.form-mealnumber {
+
+  width: 200px;
+}
