@@ -12,9 +12,10 @@ var canvas = document.getElementById('canvas'),
     width = window.innerWidth,
     height = window.innerHeight,
     objects = [],
-    interval = 1000,
+    interval = 300,
     start = performance.now(),
-    id = 0;
+    id = 0,
+    obstacle = document.getElementById('obstacle').getBoundingClientRect();
 
 const MIN_INIT_V_X = 3,
       MAX_INIT_V_X = 11,
@@ -25,9 +26,12 @@ const MIN_INIT_V_X = 3,
       bounce_factor = 0.8,
       gravity = 0.7;
 
-var obstacle = document.getElementById('obstacle').getBoundingClientRect();
-
 window.onload = lets_fall
+window.onresize = function(){
+  width = window.innerWidth;
+  height = window.innerHeight;
+  obstacle = document.getElementById('obstacle').getBoundingClientRect();
+}
 
 var icons = [
   burger = {src: "static/images/burger.png" },
@@ -38,8 +42,10 @@ var icons = [
 function lets_fall() {
   animate();
   setInterval(
-    // random time interval
-    interval = (Math.random() * (MAX_TIME_INTERVAL - MIN_TIME_INTERVAL) + MIN_TIME_INTERVAL) * 500, 1000)
+    function() {
+      // random time interval
+      interval = (Math.random() * (MAX_TIME_INTERVAL - MIN_TIME_INTERVAL) + MIN_TIME_INTERVAL) * 500
+    }, 500)
 }
 
 function add_new_projectile(time) {
@@ -58,6 +64,7 @@ function add_new_projectile(time) {
       img.style.position = "absolute";
       img.style.left = (width - w) / 2 + "px";
       img.style.top = "-70px";
+      img.style.transform = "rotate(0deg)";
       img.id = id;
       id++;
       // making a js object based on this image
@@ -87,11 +94,13 @@ function Projectile(img) {
   this.width = parseInt(img.style.width);
   this.x = width / 2 - this.width / 2;
   this.y = -70;
+  this.angle = 0;
   this.vx = (Math.random() * (MAX_INIT_V_X - MIN_INIT_V_X) + MIN_INIT_V_X) * Math.pow(-1, Math.floor(Math.random() * 2));
   this.vy = Math.random() * (MAX_INIT_V_Y - MIN_INIT_V_Y) + MIN_INIT_V_Y;
   this.draw = () => {
     this.node.style.left = this.x + "px";
     this.node.style.top = this.y + "px";
+    this.node.style.transform = `rotate(${this.angle}deg)`;
   }
 }
 
@@ -130,14 +139,17 @@ function fall() {
       obj.x += obj.vx;
       obj.y += obj.vy;
       obj.vy += gravity;
+      obj.angle += obj.vx
       obj.draw();
     } else {
-      remove_list.push(i);
+      remove_list.push(obj);
     }
-    for(j = 0; j < remove_list; j--){
-      // remove the out of frame object from our list
-      canvas.removeChild(objects[remove_list[0]].node);
-      objects.splice(remove_list[0], 1);
-    }
+    try {
+      for(j = 0; j < remove_list.length; j++){
+        // remove the out of frame object from our list
+        canvas.removeChild(remove_list[j].node);
+        objects.splice(objects.indexOf(obj), 1);
+      }
+    } catch(err) {}
   }
 }
