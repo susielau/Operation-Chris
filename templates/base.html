@@ -1,27 +1,29 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title>Flask Intro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+    <title>{{ title }}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/bootstrap.css') }}>
+    <link rel="stylesheet" href={{ url_for('static', filename="css/main.css") }}>
   </head>
   <body>
 
-    <div class="container">
+    <!-- child template -->
+    {% block content %}{% endblock %}
 
-      <!-- child template -->
-      {% block content %}{% endblock %}
+    <!-- errors -->
+    {% if error %}
+      <p class="error"><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
 
-      <!-- errors -->
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}</p>
-      {% endif %}
-
-      <!-- messages -->
-      {% for message in get_flashed_messages() %}
-        {{ message }}
-      {% endfor %}
-    </div>
+    <!-- messages -->
+    {% for message in get_flashed_messages() %}
+      {{ message }}
+    {% endfor %}
 
   </body>
 </html>

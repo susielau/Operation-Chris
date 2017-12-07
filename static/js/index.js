@@ -9,10 +9,12 @@ window.requestAnimFrame = (function(){
           };
 })();
 var canvas = document.getElementById('canvas'),
-    ctx = canvas.getContext('2d'),
-    width = canvas.width = window.innerWidth,
-    height = canvas.height = window.innerHeight,
-    objects = [];
+    width = window.innerWidth,
+    height = window.innerHeight,
+    objects = [],
+    interval = 1000,
+    start = performance.now(),
+    id = 0;
 
 const MIN_INIT_V_X = 3,
       MAX_INIT_V_X = 11,
@@ -28,38 +30,72 @@ var obstacle = document.getElementById('obstacle').getBoundingClientRect();
 window.onload = lets_fall
 
 var icons = [
-  burger = {src: 'images/burger.png'},
-  hotdog = {src: 'images/hotdog.png'},
-  fries = {src: 'images/fries.png'}
+  burger = {src: "static/images/burger.png" },
+  hotdog = {src: 'static/images/hotdog.png'},
+  fries = {src: 'static/images/fries.png'}
 ]
 
 function lets_fall() {
   animate();
   setInterval(
-    function() {
-      let image = new Image();
-      // randomly select an icon from the list and let it fall
-      icon = icons[Math.floor(Math.random() * icons.length)];
-      image.src = icon.src;
-      image.onload = () => {
-        let falling_object = new Projectile(image);
-        objects.push(falling_object)
-      }
-    },
     // random time interval
-    (Math.random() * (MAX_TIME_INTERVAL - MIN_TIME_INTERVAL) + MIN_TIME_INTERVAL) * 500
-  )
-
+    interval = (Math.random() * (MAX_TIME_INTERVAL - MIN_TIME_INTERVAL) + MIN_TIME_INTERVAL) * 500, 1000)
 }
+
+function add_new_projectile(time) {
+  if ((time - start) >= interval){
+    let image = new Image();
+    // randomly select an icon from the list and let it fall
+    icon = icons[Math.floor(Math.random() * icons.length)];
+    image.src = icon.src; // @to delete
+    image.onload = () => {
+      // creating the icon and initializing CSS
+      let img = document.createElement("img");
+      img.src = icon.src; // @may not work
+      let w = (70 * image.width) / image.height;
+      img.style.width = w + "px";
+      img.style.height = "70px";
+      img.style.position = "absolute";
+      img.style.left = (width - w) / 2 + "px";
+      img.style.top = "-70px";
+      img.id = id;
+      id++;
+      // making a js object based on this image
+      let falling_object = new Projectile(img);
+      // put this object onto the  "falling list"
+      objects.push(falling_object);
+      // put the image onto html
+      canvas.appendChild(img);
+    }
+    start = performance.now();
+  }
+}
+
 
 function animate() {
     fall();
+    requestAnimFrame(function (time) {
+      add_new_projectile(time)
+    })
     requestAnimFrame(animate);
 }
 
+
+function Projectile(img) {
+  this.node = img;
+  this.height = 70;
+  this.width = parseInt(img.style.width);
+  this.x = width / 2 - this.width / 2;
+  this.y = -70;
+  this.vx = (Math.random() * (MAX_INIT_V_X - MIN_INIT_V_X) + MIN_INIT_V_X) * Math.pow(-1, Math.floor(Math.random() * 2));
+  this.vy = Math.random() * (MAX_INIT_V_Y - MIN_INIT_V_Y) + MIN_INIT_V_Y;
+  this.draw = () => {
+    this.node.style.left = this.x + "px";
+    this.node.style.top = this.y + "px";
+  }
+}
+
 function fall() {
-  ctx.globalCompositeOperation = "source-over";
-  ctx.clearRect(0, 0, width, height);
   let remove_list = [];
   for (i = 0; i < objects.length; i++) {
     obj = objects[i];
@@ -94,48 +130,14 @@ function fall() {
       obj.x += obj.vx;
       obj.y += obj.vy;
       obj.vy += gravity;
-      obj.draw(ctx);
+      obj.draw();
     } else {
       remove_list.push(i);
     }
     for(j = 0; j < remove_list; j--){
       // remove the out of frame object from our list
+      canvas.removeChild(objects[remove_list[0]].node);
       objects.splice(remove_list[0], 1);
     }
   }
-}
-
-function Projectile(img) {
-  this.img = img;
-  this.height = 70;
-  this.width = (70 * img.width) / img.height;
-  this.x = width / 2 - this.width / 2;
-  this.y = 0 - this.height;
-  this.vx = (Math.random() * (MAX_INIT_V_X - MIN_INIT_V_X) + MIN_INIT_V_X) * Math.pow(-1, Math.floor(Math.random() * 2));
-  this.vy = Math.random() * (MAX_INIT_V_Y - MIN_INIT_V_Y) + MIN_INIT_V_Y;
-  this.draw = (ctx) => {
-    if (this.vx < 0){
-      this.img = rotateAndCache(this.img, 0.02 * this.vx)
-    } else {
-      this.img = rotateAndCache(this.img, 0.02 * this.vx)
-    }
-
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
-  }
-}
-// return a new canvas containing the rotated image
-// source: Google IO Talk
-rotateAndCache = function(image,angle) {
-  var offscreenCanvas = document.createElement('canvas');
-  var offscreenCtx = offscreenCanvas.getContext('2d');
-
-  var size = Math.max(image.width, image.height);
-  offscreenCanvas.width = size;
-  offscreenCanvas.height = size;
-  console.log(size)
-  offscreenCtx.translate(size/2, size/2);
-  offscreenCtx.rotate(angle);
-  offscreenCtx.drawImage(image, -(image.width/2), -(image.height/2));
-
-  return offscreenCanvas;
 }

@@ -29,11 +29,11 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    return render_template('index.html')  # return a template
+    return render_template('index.html', title="Order Food")  # return a template
 
 @app.route('/welcome')
 def welcome():
-    return render_template('welcome.html')  # render a template
+    return render_template('welcome.html', title="Log out")  # render a template
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -45,7 +45,7 @@ def login():
             session['logged_in'] = True
             flash('You were just logged in')
             return redirect(url_for('home'))
-    return render_template('login.html', error = error)
+    return render_template('login.html', error = error, title="Hendrick Dining")
 
 @app.route('/logout')
 @login_required
