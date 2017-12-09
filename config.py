@@ -1,8 +1,17 @@
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+# default config
+class BaseConfig(object):
+    DEBUG = False
+    SECRET_KEY = b'\xd6\xb3\x18\xed\x84\x8b\xfc\t\xaamW\xe0\x9c\x07\xfd\xc7\xbf\x1cW\x9dm\xaa>\x8b'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    print(SQLALCHEMY_DATABASE_URI)
+    
+class DevelopmentConfig(BaseConfig):
+    DEBUG = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-CSRF_ENABLED = True
-SECRET_KEY = b'{\x9dz\xf2\xd2\xedp\xbaKgT<\xaan\x81%D\xbc\xfbi\x01\xcc\x9a\x92'
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
+class ProductionConfig(BaseConfig):
+    DEBUG = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

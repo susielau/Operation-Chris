@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome to Hendrick House!</h1>
+    <br>
+    <p>Click <a href="/logout">here</a> to logout.</p>
+    <h3>Food:</h3>
+    {% for food in foods %}
+      <strong>Name:</strong> {{ food.name }} <br>
+    <br>
+    {% endfor %}
+{% endblock %}
