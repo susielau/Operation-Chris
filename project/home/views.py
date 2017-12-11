@@ -37,15 +37,7 @@ def login_required(test):
 #### routes ####
 ################
 
-# use decorators to link the function to a url
-@home_blueprint.route('/')
+@home_blueprint.route('/order')
 @login_required
-def home():
-    # return "Hello, World!"  # return a string
-    foods = db.session.query(Food).all()
-    return render_template('index.html', foods=foods)  # render a template
-
-
-@home_blueprint.route('/welcome')
-def welcome():
-    return render_template('welcome.html')  # render a template
+def order():
+    return render_template('order.html')  # render a template

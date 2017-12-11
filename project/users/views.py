@@ -39,8 +39,8 @@ def login_required(test):
 ################
 
 # route for handling the login page logic
-@users_blueprint.route('/login', methods=['GET', 'POST'])
-def login():
+@users_blueprint.route('/', methods=['GET', 'POST'])
+def home():
     error = None
     form = LoginForm(request.form)
     if request.method == 'POST':
@@ -48,9 +48,9 @@ def login():
             user = User.query.filter_by(name=request.form['username']).first()
             if user is not None and (user.password==request.form['password']):
                 session['logged_in'] = True
-                flash('You were logged in.')
-                return redirect(url_for('home.home'))
-                
+                flash('You were logged in.') # TODO delete
+                return redirect(url_for('home.order'))
+
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', form=form, error=error)
@@ -61,4 +61,4 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out.')
-    return redirect(url_for('home.welcome'))
+    return redirect(url_for('home'))
