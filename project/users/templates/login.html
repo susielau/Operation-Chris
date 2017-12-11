@@ -19,7 +19,7 @@
                    type="password" name="password" placeholder="Meal Number"
                    value="{{ request.form.password }}">
           </div>
-            {% if error %}
+            {% if error != None %}
               <div class="err">
                 <p>{{error}}</p>
               </div>

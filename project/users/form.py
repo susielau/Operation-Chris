@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SelectField
+from wtforms import StringField, IntegerField, SelectField, BooleanField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
@@ -7,4 +7,11 @@ class LoginForm(FlaskForm):
     password = IntegerField('Password', validators=[DataRequired()])
 
 class OrderForm(FlaskForm):
-    patty = SelectField('Patty')
+    patty = SelectField('Patty',
+            choices=[('1','1'),('2','2'),('3','3')])
+    item = StringField('item')
+    nobun = BooleanField('nobun')
+    cheese = BooleanField('cheese')
+    bacon = BooleanField('bacon')
+
+

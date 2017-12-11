@@ -46,7 +46,8 @@ def home():
     if request.method == 'POST':
         if form.validate_on_submit():
             user = User.query.filter_by(email=request.form['email']).first()
-            if user is not None and (user.password==int(request.form['password'])):
+            print(user)
+            if user is not None and (int(user.password)==int(request.form['password'])):
                 session['logged_in'] = True
                 flash('You were logged in.') # TODO delete
                 return redirect(url_for('home.order'))
