@@ -45,12 +45,11 @@ def home():
     form = LoginForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            user = User.query.filter_by(name=request.form['username']).first()
-            if user is not None and (user.password==request.form['password']):
+            user = User.query.filter_by(email=request.form['email']).first()
+            if user is not None and (user.password==int(request.form['password'])):
                 session['logged_in'] = True
                 flash('You were logged in.') # TODO delete
                 return redirect(url_for('home.order'))
-
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', form=form, error=error)
@@ -61,4 +60,4 @@ def home():
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out.')
-    return redirect(url_for('home'))
+    return redirect(url_for('users.home'))

@@ -47,12 +47,17 @@ p {
 .input-form.form-control {
   width: 200px;
 }
-.input-form div {
+.input-form > div {
   padding: 5px;
 }
-.input-form div:nth-of-type(3) {
+.input-form > div:nth-of-type(2) ~ div{
   flex-basis: 300px;
-  padding: 10px;
+}
+.err {
+  margin-bottom: -10px;
+}
+.err > p {
+  color: rgb(218, 85, 0);
 }
 .btn-outline-start {
   color: #996633;

@@ -9,18 +9,24 @@
         <!-- form -->
         <form class="form-inline mt-md-3 input-form" method="post">
           <div>
+            {{ form.csrf_token }}
             <input class="form-mealnumber form-control"
-                   type="text" name="username" placeholder="Email Address"
-                   value="{{ request.form.username }}">
+                   type="text" name="email" placeholder="Email Address"
+                   value="{{ request.form.email }}">
           </div>
           <div>
             <input class="form-mealnumber form-control"
                    type="password" name="password" placeholder="Meal Number"
                    value="{{ request.form.password }}">
           </div>
-          <div class="">
-            <input type="submit" class="btn btn-outline-start start" value="Start">
-          </div>
+            {% if error %}
+              <div class="err">
+                <p>{{error}}</p>
+              </div>
+            {% endif %}
+            <div>
+              <input type="submit" class="btn btn-outline-start start" value="Start!">
+            </div>
         </form>
       </div>
 
