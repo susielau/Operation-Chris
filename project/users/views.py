@@ -50,6 +50,8 @@ def home():
                 session['logged_in'] = True
                 flash('You were logged in.') # TODO delete
                 return redirect(url_for('home.order'))
+            elif user is None:
+                error = 'Invalid Credentials. Please try again.'
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', form=form, error=error)

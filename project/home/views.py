@@ -4,7 +4,7 @@
 
 from project import app, db
 from project.models import Food
-from flask import flash, redirect, session, url_for, render_template, Blueprint
+from flask import flash, redirect, session, url_for, render_template, Blueprint, request
 from functools import wraps
 
 ################
@@ -37,7 +37,16 @@ def login_required(test):
 #### routes ####
 ################
 
-@home_blueprint.route('/order')
+@home_blueprint.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
+    form = 
+    if request.method == 'POST':
+        if form.validate_on_submit:
+            return redirect(url_for('home.success'))
     return render_template('order.html')  # render a template
+
+@home_blueprint.route('/success')
+@login_required
+def success():
+    return render_template('success.html')
