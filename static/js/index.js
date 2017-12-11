@@ -17,8 +17,8 @@ var canvas = document.getElementById('canvas'),
     id = 0,
     obstacle = document.getElementById('obstacle').getBoundingClientRect();
 
-const MIN_INIT_V_X = 3,
-      MAX_INIT_V_X = 11,
+const MIN_INIT_V_X = 2,
+      MAX_INIT_V_X = 10,
       MIN_INIT_V_Y = 0,
       MAX_INIT_V_Y = 5,
       MIN_TIME_INTERVAL = 1, // second
@@ -36,7 +36,17 @@ window.onresize = function(){
 var icons = [
   burger = {src: "static/images/burger.png" },
   hotdog = {src: 'static/images/hotdog.png'},
-  fries = {src: 'static/images/fries.png'}
+  fries = {src: 'static/images/fries.png'},
+  apple = {src: 'static/images/apple.png'},
+  egg = {src: 'static/images/egg.png'},
+  chicken = {src: 'static/images/chicken.png'},
+  ice_cream = {src: 'static/images/ice_cream.png'},
+  pizza = {src: 'static/images/pizza.png'},
+  toast = {src: 'static/images/toast.png'},
+  salad = {src: 'static/images/salad.png'},
+  sandwich = {src: 'static/images/sandwich.png'},
+  donut = {src: 'static/images/donut.png'},
+  taco = {src: 'static/images/taco.png'}
 ]
 
 function lets_fall() {
@@ -52,7 +62,7 @@ function add_new_projectile(time) {
   if ((time - start) >= interval){
     let image = new Image();
     // randomly select an icon from the list and let it fall
-    icon = icons[Math.floor(Math.random() * icons.length)];
+    let icon = icons[Math.floor(Math.random() * icons.length)];
     image.src = icon.src; // @to delete
     image.onload = () => {
       // creating the icon and initializing CSS
@@ -144,12 +154,13 @@ function fall() {
     } else {
       remove_list.push(obj);
     }
-    try {
-      for(j = 0; j < remove_list.length; j++){
+    for(j = 0; j < remove_list.length; j++){
+      try {
         // remove the out of frame object from our list
         canvas.removeChild(remove_list[j].node);
         objects.splice(objects.indexOf(obj), 1);
-      }
-    } catch(err) {}
+      } catch(err) {}
+    }
+
   }
 }

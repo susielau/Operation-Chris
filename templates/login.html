@@ -4,7 +4,9 @@
   <div class="vertical-outer">
     <div class="vertical-middle">
       <div id="obstacle" class="col-8 offset-2 text-center vertical-inner">
+        <!-- title -->
         <h1 class="home-headlines">Welcome to Hendrick House Dinner</h1>
+        <!-- form -->
         <form class="form-inline mt-md-3 input-form" method="post">
           <div>
             <input class="form-mealnumber form-control"
@@ -17,11 +19,8 @@
                    value="{{ request.form.password }}">
           </div>
           <div class="">
-            <input type="submit" class="btn btn-outline-start
-                    start" value="Start!">
+            <input type="submit" class="btn btn-outline-start start" value="Start">
           </div>
-
-
         </form>
       </div>
 
@@ -32,12 +31,12 @@
   <script src={{ url_for('static', filename='js/index.js') }}></script>
 
   <style media="screen">
-    body{
-      background-image: url({{ url_for('static', filename='images/background.png') }});
-      background-position: center;
-      background-size: cover;
-      overflow: hidden;
-    }
+  body{
+    background-image: url({{ url_for('static', filename='images/background.png') }});
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+  }
   </style>
 
 
