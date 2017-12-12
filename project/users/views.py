@@ -7,6 +7,7 @@ from flask import flash, redirect, render_template, request, \
 from functools import wraps
 from project.users.form import LoginForm
 from project.models import User
+from project import db
 
 
 ################
@@ -46,15 +47,24 @@ def home():
     if request.method == 'POST':
         if form.validate_on_submit():
             user = User.query.filter_by(email=request.form['email']).first()
-            print(user)
             if user is not None and (int(user.password)==int(request.form['password'])):
                 session['logged_in'] = True
                 flash('You were logged in.') # TODO delete
+
+                session['user']=user #store user in session
+                session['password']=password #store user password in session
+
                 return redirect(url_for('home.order'))
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', form=form, error=error)
 
+def store():
+    if 'user' in session:
+        user = session['user']
+    if 'password' in session:
+        password = session['password']
+    
 
 @users_blueprint.route('/logout')
 @login_required
