@@ -6,7 +6,6 @@
         <h2>Which one would you like today?</h2>
       </div>
     </div>
-
     <div class="container-fluid" style="margin-top: 57px; padding: 50px; padding-top: 30px">
       <div class="row">
         {% for i in range(10): %}
@@ -32,7 +31,6 @@
       </div>
       <!-- The Order Modal -->
       <div id="myModal" class="modal">
-
         <!-- Order content -->
         <div class="modal-content">
           <!-- close tag -->
@@ -48,11 +46,13 @@
                 <div class="p-3 mt-3 border rounded bg-white border-brown">
                   <h5>I want:</h5>
                   <form class="text-center" method="post" style="margin-top: 15px">
+                    {{ form.csrf_token }}
+                    <input id="form-item" name="item" style="display: none">
                     <!-- patty number -->
                     <div id="patty" class="form-group" style="display: flex; margin-left: -7px">
                       <label class="col-form-label offset-2 col-4" for="patties" >Patties</label>
                       <div class="col-4" style="margin-top: 4px">
-                        <select class="custom-select" type="number" name="patties" value="1" style="margin-left: 10px">
+                        <select class="custom-select" type="number" name="patty" value="1" style="margin-left: 10px">
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -64,7 +64,7 @@
                       <label class="offset-2 col-4 col-form-label" for="no_bun" style="margin-top:-11px">No Bun</label>
                       <div class="col-4">
                         <label class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" name="no_bun">
+                          <input class="custom-control-input" type="checkbox" name="nobun">
                           <span class="custom-control-indicator"></span>
                         </label>
                       </div>
@@ -95,8 +95,6 @@
                   </form>
                 </div>
               </div>
-
-
             </div>
           </div>
 

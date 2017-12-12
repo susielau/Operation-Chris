@@ -5,7 +5,7 @@
 from flask import flash, redirect, render_template, request, \
     session, url_for, Blueprint
 from functools import wraps
-from project.users.form import LoginForm
+from project.form import LoginForm
 from project.models import User
 
 
@@ -55,7 +55,7 @@ def home():
                 error = 'Invalid Credentials. Please try again.'
         else:
             error = 'Invalid Credentials. Please try again.'
-    return render_template('login.html', form=form, error=error)
+    return render_template('login.html', form=form, error=error, title="Hendrick Dining")
 
 
 @users_blueprint.route('/logout')

@@ -6,6 +6,7 @@ from project import app, db
 from project.models import Food
 from flask import flash, redirect, session, url_for, render_template, Blueprint, request
 from functools import wraps
+from project.form import OrderForm
 
 ################
 #### config ####
@@ -40,13 +41,17 @@ def login_required(test):
 @home_blueprint.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
-    form = 
+    form = OrderForm()
     if request.method == 'POST':
         if form.validate_on_submit:
+            string_data = '\n'.join(["item "+str(form.item.data), "patty "+str(form.patty.data),
+                                    "no bun "+str(form.nobun.data), "cheese "+str(form.cheese.data),
+                                    "bacon "+str(form.bacon.data)])
+            print(string_data)
             return redirect(url_for('home.success'))
-    return render_template('order.html')  # render a template
+    return render_template('order.html', form=form, title="Hungry? Order Now!")  # render a template
 
 @home_blueprint.route('/success')
 @login_required
 def success():
-    return render_template('success.html')
+    return render_template('success.html', title="Order Placed!")

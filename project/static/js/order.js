@@ -15,11 +15,13 @@ function open_modal(id) {
   // modal for all-american burger
   if (id === 'AA-burger') {
     $("#order-title").text("Customize Your Own Burger!");
+    $("#form-item").attr("value", "All American Burger");
     $("#food-image").attr("src", "static/images/all-american-burger2.jpg");
     $("#patty > label").text("Patties");
   }
   else if (id === 'chicken-clucker') {
     $("#order-title").text("Customize Your Own Chicken Sandwich!");
+    $("#form-item").attr("value", "Chicken Clucker");
     $("#food-image").attr("src", "static/images/chicken-clucker.png");
     $("#patty > label").text("Chicken");
   }
