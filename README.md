@@ -49,10 +49,10 @@ When a order is done, you can click the "Done" button on the right side of the o
 
 We will keep working on the project and talk to Hendrick House to see whether they'll use it. 
 There are a lot of things we can imporve:
-  > Put more items on the menu.
-  > Notify customers when the order is done
-  > Make sure the order is placed during a meal
-  > Coordinate with the meal number system of Hendrick House
+ * Put more items on the menu.
+ * Notify customers when the order is done
+ * Make sure the order is placed during a meal
+ * Coordinate with the meal number system of Hendrick House
   
 
 ## Built With
