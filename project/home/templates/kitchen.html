@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href={{ url_for('static', filename='css/kitchen.css') }}>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="vertical-outer">
+  <div class="vertical-middle">
+    <div class="vertical-inner">
+      <div class="">
+        <table class="table text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Patty</th>
+            <th scope="col">Bun</th>
+            <th scope="col">Cheese</th>
+            <th scope="col">Bacon</th>
+            <th scope="col">Recipient</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(1, len(orders) + 1) %}
+            <tr>
+              <th scope="row">{{i}}</th>
+              <td>{{orders[i - 1].name}}</td>
+              <td>{{orders[i - 1].patty}}</td>
+              <td>
+                {% if orders[i - 1].no_bun %}
+                  <i class="fa fa-times"></i>
+                {% else %}
+                  <i class="fa fa-check"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% if orders[i - 1].cheese %}
+                  <i class="fa fa-check"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% if orders[i - 1].bacon %}
+                  <i class="fa fa-check"></i>
+                {% endif %}
+              </td>
+              <td>{{orders[i - 1].recipient.name}}</td>
+              <td>
+                <form method="post">
+                  <input name="order_id" value={{orders[i - 1].id}} style="display: none;">
+                  <input type="submit" class="btn btn-success btn-sm" value="Done"></input>
+                </form>
+
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

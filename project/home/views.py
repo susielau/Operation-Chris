@@ -3,7 +3,7 @@
 #################
 
 from project import app, db
-from project.models import Food
+from project.models import Order, User
 from flask import flash, redirect, session, url_for, render_template, Blueprint, request
 from functools import wraps
 from project.form import OrderForm
@@ -45,10 +45,14 @@ def order():
     form = OrderForm()
     if request.method == 'POST':
         if form.validate_on_submit:
-            string_data = '\n'.join(["item "+str(form.item.data), "patty "+str(form.patty.data),
-                                    "no bun "+str(form.nobun.data), "cheese "+str(form.cheese.data),
-                                    "bacon "+str(form.bacon.data)])
-            # print(string_data)
+            session['item'] = form.item.data
+            new_order = Order(name = form.item.data, patty = int(form.patty.data),
+                                 no_bun = form.no_bun.data, cheese = form.cheese.data,
+                                 bacon = form.bacon.data)
+            db.session.add(new_order)
+            user = db.session.query(User).filter_by(email = session['user_email']).one()
+            user.orders.append(new_order)
+            db.session.commit()
             return redirect(url_for('home.success'))
     def length(a):
         return len(a)
@@ -59,3 +63,22 @@ def order():
 @login_required
 def success():
     return render_template('success.html', title="Order Placed!")
+
+
+@home_blueprint.route('/kitchen', methods=['GET', 'POST'])
+def kitchen():
+    if request.method == 'POST':
+        order_id = int(request.values.get('order_id'))
+        this_order = db.session.query(Order).filter_by(id=order_id).one()
+        db.session.delete(this_order)
+        db.session.commit()
+        return redirect('kitchen')
+    orders = db.session.query(Order).all()
+    def length(a):
+        return len(a)
+    return render_template('kitchen.html', title="Order List", orders=orders, len=length)
+
+
+
+
+#

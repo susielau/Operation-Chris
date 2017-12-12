@@ -56,7 +56,7 @@
                       <label class="offset-2 col-4 col-form-label" for="no_bun" style="margin-top:-11px">No Bun</label>
                       <div class="col-4">
                         <label class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" name="nobun">
+                          <input class="custom-control-input" type="checkbox" name="no_bun">
                           <span class="custom-control-indicator"></span>
                         </label>
                       </div>
@@ -94,7 +94,7 @@
       <!-- log out -->
       <div class="text-center p-2">
         <div style="display: inline-block;">
-          <p class="logout">You're not {{username}}? Click <a href="/logout">here</a> to logout.</p>
+          <p class="logout">You're not {{session['user']}}? Click <a href="/logout">here</a> to logout.</p>
         </div>
       </div>
     </div>

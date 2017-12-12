@@ -12,14 +12,6 @@ h5, label {
 h5 {
   font-size: 28px;
 }
-.logout {
-  border: 2px;
-  border-color: rgb(177, 113, 72);
-  border-style: solid;
-  background-color: rgba(242, 215, 188, 0.72);
-  border-radius: 3rem;
-  padding: 0.5em;
-}
 .border-brown {
   border-color: rgb(177, 113, 72) !important;
 }

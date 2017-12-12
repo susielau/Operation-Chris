@@ -4,11 +4,11 @@ from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
-    password = IntegerField('Password', validators=[DataRequired()])
+    password = StringField('Password', validators=[DataRequired()])
 
 class OrderForm(FlaskForm):
-    item = StringField('item')
+    item = StringField('Item Name')
     patty = SelectField('Patty', choices=[('1','1'),('2','2'),('3','3')])
-    nobun = BooleanField('nobun')
-    cheese = BooleanField('cheese')
-    bacon = BooleanField('bacon')
+    no_bun = BooleanField('No Bun')
+    cheese = BooleanField('Cheese')
+    bacon = BooleanField('Bacon')

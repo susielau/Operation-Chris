@@ -12,6 +12,14 @@ p {
   font-family: 'Open Sans';
   color: #291819;
 }
+.logout {
+  border: 2px;
+  border-color: rgb(177, 113, 72);
+  border-style: solid;
+  background-color: rgba(242, 215, 188, 0.72);
+  border-radius: 3rem;
+  padding: 0.5em;
+}
 .canvas {
   position: absolute;
   top: 0;

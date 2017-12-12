@@ -10,6 +10,7 @@ from project.models import User, bcrypt
 from project import db
 
 
+
 ################
 #### config ####
 ################
@@ -47,12 +48,10 @@ def home():
     if request.method == 'POST':
         if form.validate_on_submit():
             user = User.query.filter_by(email=request.form['email']).first()
-            if user is not None and bcrypt.check_password_hash(request.form['password'],user.password):
+            if user is not None and user.validate_password(request.form['password']):
                 session['logged_in'] = True
-
-                session['username']=user.name #store user in session
-                session['password']=user.password #store user password in session
-
+                session['username']= user.name #store user in session
+                session['user_email']=user.email
                 return redirect(url_for('home.order'))
             elif user is None:
                 error = 'Invalid Credentials. Please try again.'
