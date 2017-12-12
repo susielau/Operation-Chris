@@ -52,7 +52,7 @@ def home():
                 session['user']= user.name #store user in session
                 session['user_email']=user.email
                 return redirect(url_for('home.order'))
-            elif user is None:
+            else:
                 error = 'Invalid Credentials. Please try again.'
         else:
             error = 'Invalid Credentials. Please try again.'
