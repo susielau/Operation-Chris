@@ -1,8 +1,8 @@
-from project import db
-# from project import bcrypt
+from project import db, bcrypt
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+from passlib.hash import pbkdf2_sha256 as passhash
 
 class Order(db.Model):
 
@@ -29,14 +29,19 @@ class User(db.Model):
     name = db.Column(db.String,nullable=False)
     email = db.Column(db.String,nullable=False)
     meals = db.Column(db.Integer,nullable=False)
-    password = db.Column(db.Integer,nullable=False)
+
+    password = db.Column(db.String,nullable=False)
     orders = relationship("Order", backref="recipient", cascade='save-update, merge, delete')
+
 
     def __init__(self,name,email,meals,password):
         self.name=name
         self.email=email
         self.meals=meals
-        self.password=password
+        self.password=passhash.encrypt(password,rounds=20000,salt_size=16)
+
+    def validate_password(self,password):
+        return passhash.verify(password,self.password)
 
     def __repr__(self):
         return '<{}-{}>'.format(self.name,self.email)

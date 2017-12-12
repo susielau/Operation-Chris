@@ -5,6 +5,6 @@ from project.models import User
 db.create_all()
 
 #insert
-db.session.add(User("Jenny","xc14@illinois.edu",14, 000000))
+db.session.add(User("Jenny","xc14@illinois.edu",14, '123456'))
 #commit the changes
 db.session.commit()
