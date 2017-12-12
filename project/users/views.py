@@ -49,10 +49,8 @@ def home():
             user = User.query.filter_by(email=request.form['email']).first()
             if user is not None and (int(user.password)==int(request.form['password'])):
                 session['logged_in'] = True
-
-                session['username']=user.name #store user in session
-                session['password']=user.password #store user password in session
-
+                session['user']= user.name #store user in session
+                session['user_email']=user.email
                 return redirect(url_for('home.order'))
             elif user is None:
                 error = 'Invalid Credentials. Please try again.'

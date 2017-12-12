@@ -4,18 +4,18 @@ from project import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-class Food(db.Model):
+class Order(db.Model):
 
-    __tablename__="foods"
+    __tablename__= "orders"
 
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String,nullable=False)
+    patty = db.Column(db.Integer)
+    no_bun = db.Column(db.Boolean)
+    cheese = db.Column(db.Boolean)
+    bacon = db.Column(db.Boolean)
     addons = db.Column(db.String,nullable=True)
     recipient_id = db.Column(db.Integer,ForeignKey('users.id'))
-
-    def __init__(self,name,addons):
-        self.name=name
-        self.addons=addons
 
     def __repr__(self):
         return '<name {}>'.format(self.name)
@@ -30,7 +30,7 @@ class User(db.Model):
     email = db.Column(db.String,nullable=False)
     meals = db.Column(db.Integer,nullable=False)
     password = db.Column(db.Integer,nullable=False)
-    food = relationship("Food", backref="recipient")
+    orders = relationship("Order", backref="recipient", cascade='save-update, merge, delete')
 
     def __init__(self,name,email,meals,password):
         self.name=name

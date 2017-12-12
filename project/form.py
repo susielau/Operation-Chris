@@ -7,8 +7,8 @@ class LoginForm(FlaskForm):
     password = IntegerField('Password', validators=[DataRequired()])
 
 class OrderForm(FlaskForm):
-    item = StringField('item')
+    item = StringField('Item Name')
     patty = SelectField('Patty', choices=[('1','1'),('2','2'),('3','3')])
-    nobun = BooleanField('nobun')
-    cheese = BooleanField('cheese')
-    bacon = BooleanField('bacon')
+    no_bun = BooleanField('No Bun')
+    cheese = BooleanField('Cheese')
+    bacon = BooleanField('Bacon')
