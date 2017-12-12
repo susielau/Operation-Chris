@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="canvas" id="canvas"></div>
+  <div class="vertical-outer">
+    <div class="vertical-middle">
+      <div id="obstacle" class="col-8 offset-2 text-center vertical-inner">
+        <!-- title -->
+        <h1 class="home-headlines">Welcome to Hendrick House Dinner</h1>
+        <!-- form -->
+        <form class="form-inline mt-md-3 input-form" method="post">
+          <div>
+            {{ form.csrf_token }}
+            <input class="form-mealnumber form-control"
+                   type="text" name="email" placeholder="Email Address"
+                   value="{{ request.form.email }}">
+          </div>
+          <div>
+            <input class="form-mealnumber form-control"
+                   type="password" name="password" placeholder="Meal Number"
+                   value="{{ request.form.password }}">
+          </div>
+            {% if error != None %}
+              <div class="err">
+                <p>{{error}}</p>
+              </div>
+            {% endif %}
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="err">
+              {% for message in messages %}
+                <p>{{message}}</p>
+              {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+            <div>
+              <input type="submit" class="btn btn-outline-start start" value="Start!">
+            </div>
+        </form>
+      </div>
+
+    </div>
+    </div>
+
+  <!-- my own JavaScript -->
+  <script src={{ url_for('static', filename='js/index.js') }}></script>
+
+  <style media="screen">
+  body{
+    background-image: url({{ url_for('static', filename='images/background.png') }});
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    background-repeat: no-repeat;
+  }
+  </style>
+
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href={{ url_for('static', filename='css/success.css') }}>
+<div class="vertical-outer">
+  <div class="vertical-middle">
+    <div class="col-8 offset-2 text-center vertical-inner">
+      <div class="p-3">
+        <img class="icon" src="static/images/success.png" alt="success">
+      </div>
+      <h1>Thank You!</h3>
+      <div class="p-2">
+        <p>We're making your {{session['item']}} as fast as possible.<br>Please wait for our notification.</p>
+      </div>
+      <div class="text-center p-2">
+        <div style="display: inline-block;">
+          <p class="logout">Click <a href="/logout">here</a> to logout.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

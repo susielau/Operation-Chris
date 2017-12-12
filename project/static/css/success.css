@@ -1,0 +1,21 @@
+body {
+  /*background-color: rgba(218, 214, 203, 0.7);*/
+  background-image: url(../images/background-s.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+h1 {
+  font-size: 70px
+}
+.icon {
+  width: 100px;
+}
+.vertical-inner {
+  display: flex;
+  flex-flow: column;
+}
+p {
+  font-family: "Lato";
+  font-size: 20px;
+}

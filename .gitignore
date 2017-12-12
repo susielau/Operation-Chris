@@ -1,0 +1,10 @@
+# all the DS_Store
+.DS_Store
+frontend/.DS_Store
+static/css/.DS_Store
+
+# all the pycache
+__pycache__
+project/__pycache__
+project/home/__pycache__
+project/users/__pycache__

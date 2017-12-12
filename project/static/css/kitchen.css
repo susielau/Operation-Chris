@@ -1,0 +1,12 @@
+body {
+  background-image: url(../images/kitchen-bg.png);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.fa-times {
+  color: red;
+}
+.fa-check {
+  color: green;
+}
