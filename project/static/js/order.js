@@ -1,3 +1,20 @@
+var menu = {
+      AA_burger: {
+        order_title: "Customize Your Own Burger!",
+        name: "All-American Burger",
+        image: "static/images/all-american-burger2.jpg",
+        patty: "Patties",
+        description: "Delicious 4 oz Black Angus Beef burger topped with optional cheese and bacon.",
+      },
+      chicken_clucker: {
+        order_title: "Customize Your Own Chicken Sandwich!",
+        name: "Grilled Chicken Sandwich",
+        image: "static/images/chicken-clucker.png",
+        patty: "Chicken",
+        description: "Grilled 4 oz chicken breast topped with optional Swiss-American cheese and bacon",
+      }
+    }
+
 // Get the modal
 var modal = document.getElementById('myModal'),
     nav = document.getElementById('nav');
@@ -11,26 +28,25 @@ var span = document.getElementsByClassName("close")[0];
 function open_modal(id) {
   modal.style.display = "block";
   nav.style.opacity = "0.5";
-  console.log(id)
-  // modal for all-american burger
-  if (id === 'AA-burger') {
-    $("#order-title").text("Customize Your Own Burger!");
-    $("#form-item").attr("value", "All American Burger");
-    $("#food-image").attr("src", "static/images/all-american-burger2.jpg");
-    $("#patty > label").text("Patties");
-  }
-  else if (id === 'chicken-clucker') {
-    $("#order-title").text("Customize Your Own Chicken Sandwich!");
-    $("#form-item").attr("value", "Chicken Clucker");
-    $("#food-image").attr("src", "static/images/chicken-clucker.png");
-    $("#patty > label").text("Chicken");
-  }
+  // change modal to corresponding fields
+  $("#order-title").text(menu[id].order_title);
+  $("#form-item").attr("value", menu[id].name);
+  $("#food-image").attr("src", menu[id].image);
+  $("#patty > label").text(menu[id].patty);
 }
 
 // When the user clicks the button, open the modal
 for (i = 0; i < cards.length; i++) {
-  let id = cards[i].id
-  cards[i].onclick = () => { open_modal(id) };
+  let card = cards[i]
+  let id = card.id
+  // changing the card content based on id
+  $(card).children("img").attr("src",menu[id].image);
+  $(card).children("img").attr("alt",menu[id].name);
+  body = $(card).children(".card-body")
+  $(body).children(".card-title").text(menu[id].name);
+  $(body).children(".card-text").text(menu[id].description)
+
+  card.onclick = () => { open_modal(id) };
 }
 
 function close() {

@@ -29,7 +29,6 @@ def login_required(test):
         if 'logged_in' in session:
             return test(*args, **kwargs)
         else:
-            flash('You need to login first.')
             return redirect(url_for('users.login'))
     return wrap
 
@@ -41,15 +40,19 @@ def login_required(test):
 @home_blueprint.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
+    menu = ["AA_burger", "chicken_clucker"]
     form = OrderForm()
     if request.method == 'POST':
         if form.validate_on_submit:
             string_data = '\n'.join(["item "+str(form.item.data), "patty "+str(form.patty.data),
                                     "no bun "+str(form.nobun.data), "cheese "+str(form.cheese.data),
                                     "bacon "+str(form.bacon.data)])
-            print(string_data)
+            # print(string_data)
             return redirect(url_for('home.success'))
-    return render_template('order.html', form=form, title="Hungry? Order Now!")  # render a template
+    def length(a):
+        return len(a)
+    return render_template('order.html', form=form, title="Hungry? Order Now!",\
+                                         menu=menu, len=length)
 
 @home_blueprint.route('/success')
 @login_required

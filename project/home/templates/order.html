@@ -8,22 +8,14 @@
     </div>
     <div class="container-fluid" style="margin-top: 57px; padding: 50px; padding-top: 30px">
       <div class="row">
-        {% for i in range(10): %}
+        <!-- clickable cards  -->
+        {% for i in range(len(menu)): %}
         <div class="offset-1 col-10 offset-sm-0 col-sm-6 col-md-4 col-lg-3" style="padding-bottom: 30px">
-          <div class="card" id="AA-burger">
-            <img class="card-img-top" src="static/images/all-american-burger2.jpg" alt="Burger">
+          <div class="card" id={{menu[i]}}>
+            <img class="card-img-top" alt="Burger">
             <div class="card-body">
-              <h4 class="card-title">All American Burger</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-        </div>
-        <div class="offset-1 col-10 offset-sm-0 col-sm-6 col-md-4 col-lg-3" style="padding-bottom: 30px; ">
-          <div class="card" id="chicken-clucker">
-            <img class="card-img-top" src="static/images/chicken-clucker.png" alt="Burger">
-            <div class="card-body">
-              <h4 class="card-title">Chicken Clucker</h4>
-              <p class="card-text">Enjoy lovely Chicken</p>
+              <h4 class="card-title"></h4>
+              <p class="card-text"></p>
             </div>
           </div>
         </div>
@@ -97,14 +89,14 @@
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
-
-      <p>Click <a href="/logout">here</a> to logout.</p>
-
-
+      <!-- log out -->
+      <div class="text-center p-2">
+        <div style="display: inline-block;">
+          <p class="logout">Click <a href="/logout">here</a> to logout.</p>
+        </div>
+      </div>
     </div>
    <script src={{ url_for('static', filename='js/order.js') }} type="text/javascript"></script>
 
