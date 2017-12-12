@@ -6,7 +6,7 @@ from flask import flash, redirect, render_template, request, \
     session, url_for, Blueprint
 from functools import wraps
 from project.form import LoginForm
-from project.models import User
+from project.models import User, bcrypt
 from project import db
 
 
@@ -47,7 +47,7 @@ def home():
     if request.method == 'POST':
         if form.validate_on_submit():
             user = User.query.filter_by(email=request.form['email']).first()
-            if user is not None and (int(user.password)==int(request.form['password'])):
+            if user is not None and bcrypt.check_password_hash(request.form['password'],user.password):
                 session['logged_in'] = True
 
                 session['username']=user.name #store user in session

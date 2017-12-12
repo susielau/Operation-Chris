@@ -1,5 +1,4 @@
-from project import db
-# from project import bcrypt
+from project import db, bcrypt
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
@@ -29,14 +28,14 @@ class User(db.Model):
     name = db.Column(db.String,nullable=False)
     email = db.Column(db.String,nullable=False)
     meals = db.Column(db.Integer,nullable=False)
-    password = db.Column(db.Integer,nullable=False)
+    password = db.Column(db.Binary,nullable=False)
     food = relationship("Food", backref="recipient")
 
     def __init__(self,name,email,meals,password):
         self.name=name
         self.email=email
         self.meals=meals
-        self.password=password
+        self.password=bcrypt.generate_password_hash(password).decode('utf-8')
 
     def __repr__(self):
         return '<{}-{}>'.format(self.name,self.email)
