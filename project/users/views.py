@@ -30,8 +30,8 @@ def login_required(test):
         if 'logged_in' in session:
             return test(*args, **kwargs)
         else:
-            flash('You need to login first.')
-            return redirect(url_for('users.login'))
+            flash('Please to login first.')
+            return redirect(url_for('users.home'))
     return wrap
 
 
@@ -49,10 +49,9 @@ def home():
             user = User.query.filter_by(email=request.form['email']).first()
             if user is not None and (int(user.password)==int(request.form['password'])):
                 session['logged_in'] = True
-                flash('You were logged in.') # TODO delete
 
-                session['user']=user #store user in session
-                session['password']=password #store user password in session
+                session['username']=user.name #store user in session
+                session['password']=user.password #store user password in session
 
                 return redirect(url_for('home.order'))
             elif user is None:
@@ -66,11 +65,10 @@ def store():
         user = session['user']
     if 'password' in session:
         password = session['password']
-    
+
 
 @users_blueprint.route('/logout')
 @login_required
 def logout():
     session.pop('logged_in', None)
-    flash('You were logged out.')
     return redirect(url_for('users.home'))

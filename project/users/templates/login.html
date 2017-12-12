@@ -24,6 +24,15 @@
                 <p>{{error}}</p>
               </div>
             {% endif %}
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="err">
+              {% for message in messages %}
+                <p>{{message}}</p>
+              {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
             <div>
               <input type="submit" class="btn btn-outline-start start" value="Start!">
             </div>

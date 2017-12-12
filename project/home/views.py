@@ -29,7 +29,8 @@ def login_required(test):
         if 'logged_in' in session:
             return test(*args, **kwargs)
         else:
-            return redirect(url_for('users.login'))
+            flash('Please login first.')
+            return redirect(url_for('users.home'))
     return wrap
 
 
@@ -52,7 +53,7 @@ def order():
     def length(a):
         return len(a)
     return render_template('order.html', form=form, title="Hungry? Order Now!",\
-                                         menu=menu, len=length)
+                                         menu=menu, len=length, username=session['username'])
 
 @home_blueprint.route('/success')
 @login_required
