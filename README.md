@@ -1,6 +1,7 @@
 # Operation Chris
 
 Our project is a web app that takes in food order and display them in the kitchen.
+Here is a link to our app runing on heruko: http://hendrickhousedining.herokuapp.com
 
 ## Homepage
 
